@@ -1,18 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    static public GameManager Instance;
+
+    public GameObject Player;
+
+    [HideInInspector]
+    public PlayerCharacter PlayerCharacter;
+    [HideInInspector]
+    public PlayerHPSyetem PlayerHPSyetem;
+    [HideInInspector]
+    public PlayerFuelSyetem PlayerFuelSyetem;
+
+    public bool bStageCleared = false;
+
+    private void Awake()
     {
-        
+        if (Instance == null) 
+        {
+            Instance = this;
+        }
+        else Destroy(this.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        PlayerCharacter = Player.GetComponent<PlayerCharacter>();
+        PlayerHPSyetem = Player.GetComponent<PlayerHPSyetem>();
+        PlayerFuelSyetem = Player.GetComponent<PlayerFuelSyetem>();
     }
 }
