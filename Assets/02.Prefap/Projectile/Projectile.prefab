@@ -98,6 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dcf2f7ec534331449784fe9644794e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bisLevel4: 0
+  HomingProjectile: {fileID: 944096574259115205, guid: 1e4bb074777f997448d6b607429614db, type: 3}
+  Level4Sprite: {fileID: 874343242196921964, guid: 5547e92425a5b584ba72bba3566474f0, type: 3}
 --- !u!61 &6191969991364012825
 BoxCollider2D:
   m_ObjectHideFlags: 0

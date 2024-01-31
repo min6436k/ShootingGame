@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PrimarySkill : BaseSkill
 {
     public GameObject PlayerBullet;
+
+    public Transform target;
+
     public float BulletSpeed;
 
     private Weapon[] Weapons = new Weapon[4];
@@ -24,8 +29,9 @@ public class PrimarySkill : BaseSkill
     }
 
 
-    public void ShootProjectile(Vector3 position, float speed, Vector3 direction, float Size = 1)
+    public void ShootProjectile(Vector3 position, float speed, Vector3 direction, float Size = 1, bool bislevel4 = false)
     {
+
         GameObject instance = Instantiate(PlayerBullet, position, Quaternion.identity);
 
         instance.transform.localScale *= Size;
@@ -33,7 +39,10 @@ public class PrimarySkill : BaseSkill
         Projectile projectile = instance.GetComponent<Projectile>();
 
         projectile.SetBullet(speed, direction);
+
+        if (bislevel4) projectile.bHomingSpawn = true;
     }
+
     public interface Weapon
     {
         public void Activate(Vector3 playerPos, PrimarySkill primarySkill);
@@ -72,7 +81,7 @@ public class PrimarySkill : BaseSkill
     {
         public void Activate(Vector3 playerPos, PrimarySkill primarySkill)
         {
-
+            primarySkill.ShootProjectile(playerPos, primarySkill.BulletSpeed, Vector3.up,1.1f,true);
         }
     }
 }

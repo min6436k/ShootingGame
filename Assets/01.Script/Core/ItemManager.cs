@@ -17,10 +17,31 @@ public class ItemManager : MonoBehaviour
 {
     public List<GameObject> Items = new List<GameObject>();
 
-    public void SpawnItem(EnumTypes.ItemName ItemName, Vector3 Pos)
+    public void SpawnItem(EnumTypes.ItemName Name, Vector3 Pos)
     {
-        GameObject targetItem = Items.Find(x => x.name == ItemName.ToString());
+        GameObject targetItem = Items.Find(x => x.name == (Name.ToString()+"Item"));
 
         Instantiate(targetItem, Pos, Quaternion.identity);
+    }
+
+    public void SpawnRandomItem(int min, int max, Vector3 position)
+    {
+        if (Random.Range(0, 3) == 0)
+        {
+            SpawnItem(EnumTypes.ItemName.Refuel, position);
+            return;
+        }
+
+        if (Random.Range(min, max) == min)
+        {
+            SpawnRandomItem(position);
+        }
+    }
+
+    public void SpawnRandomItem(Vector3 position)
+    {
+        int randomindex = Random.Range(0, (int)EnumTypes.ItemName.Last);
+        EnumTypes.ItemName name = (EnumTypes.ItemName)randomindex;
+        SpawnItem(name, position);
     }
 }

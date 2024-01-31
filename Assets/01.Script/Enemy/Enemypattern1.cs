@@ -2,27 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPattern1 : MonoBehaviour
+public class EnemyPattern1 : MonoBehaviour,Freeze
 {
     public float Speed;
     public float Amp;
 
-    private bool _bmoveRight = true;
-    private Vector3 _startPosition;
+    public bool bMoveRight = true;
+    public Vector3 StartPosition;
 
     void Start()
     {
-        _startPosition = transform.position;
+        StartPosition = transform.position;
+    }
+
+    public void Freeze(bool freeze)
+    {
+        if (freeze)
+        {
+            gameObject.GetComponent<Enemy>().bIsFreeze = true;
+        }
+        else
+        {
+            gameObject.GetComponent<Enemy>().bIsFreeze = false;
+        }
     }
 
     void Update()
     {
-        if (_bmoveRight && transform.position.x - _startPosition.x < Amp)
+        if (gameObject.GetComponent<Enemy>().bIsFreeze) return;
+
+        if (bMoveRight && transform.position.x - StartPosition.x < Amp)
             transform.position += new Vector3(1.2f, -1, 0) * Speed * Time.deltaTime;
 
-        else if (!_bmoveRight && transform.position.x - _startPosition.x > -Amp)
+        else if (!bMoveRight && transform.position.x - StartPosition.x > -Amp)
             transform.position += new Vector3(-1.2f, -1, 0) * Speed * Time.deltaTime;
 
-        else _bmoveRight = !_bmoveRight;
+        else bMoveRight = !bMoveRight;
     }
 }

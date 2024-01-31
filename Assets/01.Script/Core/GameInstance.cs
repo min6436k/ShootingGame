@@ -9,6 +9,7 @@ public class GameInstance : MonoBehaviour
     public int PlayerHP = 3;
     public float PlayerFuel = 100;
     public int WeaponLevel = 0;
+    public int AddOnCount = 0;
 
     public int StageLevel = 1;
     public float StartTime;

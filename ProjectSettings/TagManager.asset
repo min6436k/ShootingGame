@@ -9,6 +9,7 @@ TagManager:
   - PlayerBullet
   - Boss
   - Item
+  - Shield
   layers:
   - Default
   - TransparentFX

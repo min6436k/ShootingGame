@@ -6,11 +6,16 @@ using UnityEngine;
 public class EnemySpawnManager : MonoBehaviour
 {
     public GameObject[] Enemys;
+    public GameObject[] Boss;
+
     public GameObject Meteor;
     public Transform[] SpawnPos;
 
     public float EnemySpawnCoolTime = 2;
     public float MeteorSpawnCoolTime = 2;
+
+    public float BossSpawnCount = 15;
+    public float CurrentSpawnCount = 0;
 
     public bool bCanSpawn = true;
     void Start()
@@ -34,6 +39,16 @@ public class EnemySpawnManager : MonoBehaviour
 
             Instantiate(Enemys[enemyIndex], new Vector3(spawnX, SpawnPos[0].position.y, 0), Quaternion.identity);
 
+            CurrentSpawnCount++;
+
+            if (CurrentSpawnCount >= BossSpawnCount)
+            {
+                bCanSpawn = false;
+
+                yield return new WaitForSeconds(EnemySpawnCoolTime + SpawnAmp);
+
+                Instantiate(Boss[GameInstance.Instance.StageLevel-1], new Vector3(0, 8.5f, 0), Quaternion.identity);
+            }
         }
     }
 

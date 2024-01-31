@@ -75,9 +75,8 @@ public class BossA : MonoBehaviour
 
     public virtual void NextPattern()
     {
-        //int CurrentPatternIndex = FindPattern();
-        //UsePatternCount[CurrentPatternIndex] = PatternIntervalCount+1; 
-        //이부분 FindPattern으로 옮길거임
+        int CurrentPatternIndex = FindPattern();
+        UsePatternCount[CurrentPatternIndex] = PatternIntervalCount + 1;
 
         for (int i = 0; i < UsePatternCount.Length; i++)
         {
@@ -111,7 +110,23 @@ public class BossA : MonoBehaviour
 
     public virtual IEnumerator Pattern1()
     {
-        CircleShoot(12, 7);
+        int BulletCount = 36;
+        float Speed = 4;
+        float BulletIntervalTime = 0.05f;
+
+
+        for (int i = 0; i < BulletCount; i++)
+        {
+            float x = Mathf.Cos(720 / BulletCount * i * Mathf.Deg2Rad);
+            float y = Mathf.Sin(720 / BulletCount * i * Mathf.Deg2Rad);
+
+            Vector3 dir = new Vector3(x, y, 0);
+
+            ShootProjectile(transform.position, Speed, dir.normalized);
+
+            yield return new WaitForSeconds(BulletIntervalTime);
+
+        }
 
         yield return new WaitForSeconds(PatternIntervalTime);
 
@@ -120,29 +135,9 @@ public class BossA : MonoBehaviour
 
     public virtual IEnumerator Pattern2()
     {
-        CircleShoot(24, 4);
+        int BulletCount = 12;
+        float Speed = 7;
 
-        yield return new WaitForSeconds(PatternIntervalTime);
-
-        NextPattern();
-    }
-
-    public virtual IEnumerator Pattern3()
-    {
-        yield return new WaitForSeconds(PatternIntervalTime);
-
-        NextPattern();
-    }
-
-    public virtual IEnumerator Pattern4()
-    {
-        yield return new WaitForSeconds(PatternIntervalTime);
-
-        NextPattern();
-    }
-
-    public void CircleShoot(int BulletCount, float Speed)
-    {
         for (int i = 0; i < BulletCount; i++)
         {
             float x = Mathf.Cos(360 / BulletCount * i * Mathf.Deg2Rad);
@@ -152,6 +147,49 @@ public class BossA : MonoBehaviour
 
             ShootProjectile(transform.position, Speed, dir.normalized);
         }
+
+        yield return new WaitForSeconds(PatternIntervalTime);
+
+        NextPattern();
+    }
+
+    public virtual IEnumerator Pattern3()
+    {
+        int BulletCount = 5;
+        float BulletIntervalTime = 0.8f;
+        for (int i = 0; i < BulletCount; i++)
+        {
+            Vector3 dir = GameManager.Instance.Player.transform.position - transform.position;
+            ShootProjectile(transform.position, 5.5f, dir.normalized);
+
+            yield return new WaitForSeconds(BulletIntervalTime);
+        }
+
+
+        yield return new WaitForSeconds(PatternIntervalTime);
+
+        NextPattern();
+    }
+
+    public virtual IEnumerator Pattern4()
+    {
+        int BulletCount = 15;
+        float BulletInterval = 0.6f;
+
+        for (int i = 0; i < BulletCount; i++)
+        {
+            Vector3 BulletGap =new Vector3(0.3f,0,0);
+
+            ShootProjectile(transform.position -BulletGap, 16, Vector3.down);
+            ShootProjectile(transform.position +BulletGap, 16, Vector3.down);
+
+            yield return new WaitForSeconds(BulletInterval);
+            if (BulletInterval > 0.05f) BulletInterval *= 0.6f;
+        }
+
+        yield return new WaitForSeconds(PatternIntervalTime);
+
+        NextPattern();
     }
 
     public void ShootProjectile(Vector3 position, float speed, Vector3 direction, float Size = 1)
@@ -163,5 +201,10 @@ public class BossA : MonoBehaviour
         Projectile projectile = instance.GetComponent<Projectile>();
 
         projectile.SetBullet(speed, direction);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.StageClear();
     }
 }

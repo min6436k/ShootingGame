@@ -7,26 +7,26 @@ public class BaseSkill : MonoBehaviour
     public EnumTypes.PlayerSkill SkillTypes = 0;
 
     public float CoolTime;
-    private float _currentCoolTime;
-    private bool _bisCoolTime;
+    public float CurrentCoolTime;
+    public bool bIsCoolTime;
 
     void Update()
     {
-        if (_currentCoolTime >= 0)
+        if (CurrentCoolTime >= 0)
         {
-            _currentCoolTime -= Time.deltaTime;
+            CurrentCoolTime -= Time.deltaTime;
         }
-        else _bisCoolTime = false;
+        else bIsCoolTime = false;
     }
     public void Use()
     {
-        if (_bisCoolTime) return;
+        if (bIsCoolTime) return;
         Activate();
     }
 
     public virtual void Activate()
     {
-        _bisCoolTime = true;
-        _currentCoolTime = CoolTime;
+        bIsCoolTime = true;
+        CurrentCoolTime = CoolTime;
     }
 }

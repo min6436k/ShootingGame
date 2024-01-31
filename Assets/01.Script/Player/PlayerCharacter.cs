@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCharacter : MonoBehaviour
 {
@@ -20,14 +21,30 @@ public class PlayerCharacter : MonoBehaviour
     private Coroutine _invinCoroutine;
     #endregion
 
+    #region AddOn
+    public int MaxAddOnCount = 2;
+    public Transform[] AddOnTransform;
+    public GameObject AddOnPrefap;
+    #endregion
+
     void Start()
     {
         InitializeSkills();
+
+        for (int i = 0; i < GameInstance.Instance.AddOnCount; i++)
+        {
+            AddOnItem.SpawnAddOn(AddOnPrefap, AddOnTransform[i], false);
+        }
     }
     void Update()
     {
         UpdateMovement();
         UpdateSkillInput();
+
+        if(GameInstance.Instance.PlayerHP <= 0)
+        {
+            StartCoroutine(Dead());
+        }
     }
 
     private void UpdateMovement()
@@ -48,8 +65,10 @@ public class PlayerCharacter : MonoBehaviour
     private void UpdateSkillInput()
     {
         if(Input.GetKey(KeyCode.Z)) ActivateSkill(EnumTypes.PlayerSkill.Primary);
-        if(Input.GetKey(KeyCode.X)) ActivateSkill(EnumTypes.PlayerSkill.Repair);
-        if(Input.GetKey(KeyCode.C)) ActivateSkill(EnumTypes.PlayerSkill.Bomb);
+        if(Input.GetKeyDown(KeyCode.X)) ActivateSkill(EnumTypes.PlayerSkill.Repair);
+        if(Input.GetKeyDown(KeyCode.C)) ActivateSkill(EnumTypes.PlayerSkill.Bomb);
+        if (Input.GetKeyDown(KeyCode.V)) ActivateSkill(EnumTypes.PlayerSkill.Freeze);
+        if (Input.GetKeyDown(KeyCode.B)) ActivateSkill(EnumTypes.PlayerSkill.BulletShield);
     }
 
     private void InitializeSkills()
@@ -71,6 +90,24 @@ public class PlayerCharacter : MonoBehaviour
 
         _invinCoroutine = StartCoroutine(InvincibilityCoroutine(time));
     }
+
+    public void InitCoolTime()
+    {
+        foreach(BaseSkill i in Skills.Values)
+        {
+            i.CurrentCoolTime = 0;
+        }
+    }
+
+    IEnumerator Dead()
+    {
+        GetComponent<SpriteRenderer>().color = Color.clear;
+
+        yield return new WaitForSeconds(3);
+
+        SceneManager.LoadScene("Main");
+    }
+
     IEnumerator InvincibilityCoroutine(float time)
     {
         _invincibility = true;

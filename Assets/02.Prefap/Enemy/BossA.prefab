@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1454165875781816148, guid: dd96e412f4470ca44bccf2f1ab317d51, type: 3}
+      propertyPath: HP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454165875781816148, guid: dd96e412f4470ca44bccf2f1ab317d51, type: 3}
+      propertyPath: Score
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3888978334789601377, guid: dd96e412f4470ca44bccf2f1ab317d51, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 2.75
@@ -309,4 +317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f625d6b4b8ccf40b932bdf60901ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Projectile: {fileID: 6428931685224668811, guid: efd32abbadf74964aa089b4f69b8e72f, type: 3}
+  MaxPatternIndex: 4
+  UsePatternCount: 
+  PatternIntervalCount: 2
+  PatternIntervalTime: 2
   SideMoveSpeed: 2

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeWeapon : BaseItem
+public class UpgradeWeaponItem : BaseItem
 {
     public override void OnGetItem()
     {

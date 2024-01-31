@@ -31,6 +31,11 @@ public class PlayerHPSyetem : MonoBehaviour
         StopCoroutine(HitFlick());
     }
 
+    public void InitHP()
+    {
+        GameInstance.Instance.PlayerHP = 3;
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyBullet") && GameManager.Instance.PlayerCharacter.GetInvincibility == false)
