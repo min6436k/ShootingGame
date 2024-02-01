@@ -13,13 +13,15 @@ public class Enemy : MonoBehaviour
 
     public bool bIsFreeze = false;
 
-    private Color _startColor;
+    private bool _bisDead = false;
+
+    public Color StartColor;
 
     public GameObject Explode;
 
     void Start()
     {
-        _startColor = GetComponent<SpriteRenderer>().color;
+        StartColor = GetComponent<SpriteRenderer>().color;
         if (gameObject.CompareTag("Boss")) bMustSpawnItem = true;
     }
 
@@ -29,14 +31,20 @@ public class Enemy : MonoBehaviour
 
     public void Dead()
     {
-        if (!bMustSpawnItem) GameManager.Instance.GetComponentInChildren<ItemManager>().SpawnRandomItem(0, 3, transform.position);
-        else GameManager.Instance.GetComponentInChildren<ItemManager>().SpawnRandomItem(transform.position);
+        if (!_bisDead)
+        {
+            if (!bMustSpawnItem) GameManager.Instance.GetComponentInChildren<ItemManager>().SpawnRandomItem(0, 3, transform.position);
+            else GameManager.Instance.GetComponentInChildren<ItemManager>().SpawnRandomItem(transform.position);
 
-        GameManager.Instance.EnemyDies(Score);
+            GameManager.Instance.EnemyDies(Score);
 
-        Instantiate(Explode,transform.position,Quaternion.identity);
+            Instantiate(Explode, transform.position, Quaternion.identity);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+
+            _bisDead = true;
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -63,6 +71,6 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        GetComponent<SpriteRenderer>().color = _startColor;
+        GetComponent<SpriteRenderer>().color = StartColor;
     }
 }

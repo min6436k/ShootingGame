@@ -40,7 +40,11 @@ public class PrimarySkill : BaseSkill
 
         projectile.SetBullet(speed, direction);
 
-        if (bislevel4) projectile.bHomingSpawn = true;
+        if (bislevel4)
+        {
+            instance.GetComponent<BoxCollider2D>().size *= 1.5f;
+            projectile.bHomingSpawn = true;
+        }
     }
 
     public interface Weapon

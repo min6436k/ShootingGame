@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class HomingProjectile : MonoBehaviour
 {
-    private float speed = 16f;
-    private float rotateSpeed = 1000f;
-    private bool IsTracking = true;
+    private float _speed = 16f;
+    private float _rotateSpeed = 1000f;
+    private bool _bisTracking = true;
 
-    public Transform target;
+    public Transform Target;
 
-    private Rigidbody2D rb;
-    private BoxCollider2D col;
-
-    Rigidbody2D rigid;
+    private Rigidbody2D _rigid;
+    private BoxCollider2D _collider;
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        col = GetComponent<BoxCollider2D>();
+        _rigid = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<BoxCollider2D>();
 
         StartCoroutine(HitCooldown());
         Destroy(gameObject, 3f);
@@ -25,44 +23,31 @@ public class HomingProjectile : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (target == null)
+        if (Target == null)
         {
-            IsTracking = false;
-            col.enabled = false;
-            rb.angularVelocity = 0;
+            _bisTracking = false;
+            _collider.enabled = false;
+            _rigid.angularVelocity = 0;
         }
 
-        rb.velocity = transform.up * speed;
+        _rigid.velocity = transform.up * _speed;
 
-        if (!IsTracking) return;
+        if (!_bisTracking) return;
 
-        Vector3 dir = target.position - (Vector3)rb.position;
+        Vector3 dir = Target.position - (Vector3)_rigid.position;
 
         dir.Normalize();
 
-        float rotateAmount = Vector3.Cross(dir, transform.up).z;
+        float rotate = Vector3.Cross(dir, transform.up).z;
 
-        if (rotateAmount == 0) rotateAmount = 1;
+        if (rotate == 0) rotate = 1;
 
-        rb.angularVelocity = -rotateAmount * rotateSpeed;
+        _rigid.angularVelocity = -rotate * _rotateSpeed;
     }
-
-
-    IEnumerator SpeedUp()
-    {
-        while (speed >= 25f)
-        {
-            yield return new WaitForSeconds(0.1f);
-            speed *= 1.1f;
-            rotateSpeed += 250;
-        }
-
-    }
-
     IEnumerator HitCooldown()
     {
         yield return new WaitForSeconds(0.3f);
-        col.enabled = true;
+        _collider.enabled = true;
     }
 
 }

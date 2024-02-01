@@ -9,6 +9,7 @@ public class RefuelItem : BaseItem
         base.OnGetItem();
 
         GameInstance.Instance.PlayerFuel += GameManager.Instance.PlayerFuelSyetem.MaxPlayerFuel / 3;
+        if(GameInstance.Instance.PlayerFuel > 100) GameInstance.Instance.PlayerFuel = 100;
 
         Destroy(gameObject);
     }

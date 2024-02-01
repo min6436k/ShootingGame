@@ -10,10 +10,10 @@ public class AddOn : MonoBehaviour
     public GameObject Projectile;
 
     [HideInInspector]
-    public Transform TargetTransform;
-    private Transform TargetEnemyTransform;
+    public Transform FollowPos;
+    private Transform _targetPos;
 
-    public int Speed = 20;
+    public int FollowSpeed = 20;
     public float AttackInterval = 0.5f;
     public float BulletSpeed = 16;
 
@@ -24,17 +24,17 @@ public class AddOn : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, TargetTransform.position, Speed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, FollowPos.position, FollowSpeed * Time.deltaTime);
     }
 
     IEnumerator ShootProjectile()
     {
         while (true)
         {
-            TargetEnemyTransform = SearchEnemy();
+            _targetPos = SearchEnemy();
 
             GameObject instance = Instantiate(Projectile, transform.position, Quaternion.identity);
-            instance.GetComponent<HomingProjectile>().target = TargetEnemyTransform;
+            instance.GetComponent<HomingProjectile>().Target = _targetPos;
 
             yield return new WaitForSeconds(AttackInterval);
         }
@@ -57,8 +57,6 @@ public class AddOn : MonoBehaviour
                 }
             }
         }
-
-
         return target;
     }
 }

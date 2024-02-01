@@ -8,7 +8,7 @@ public class UpgradeWeaponItem : BaseItem
     {
         base.OnGetItem();
 
-        if (GameInstance.Instance.WeaponLevel < GameManager.Instance.PlayerCharacter.MaxWeaponLevel)
+        if (GameInstance.Instance.WeaponLevel < GameManager.Instance.PlayerCharacter.MaxWeaponLevel-1)
             GameInstance.Instance.WeaponLevel++;
 
         Destroy(gameObject);

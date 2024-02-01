@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(_direction * _speed * Time.deltaTime);
+        transform.Translate(_direction.normalized * _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
             for (int i = -1; i < 2; i++)
             {
                 GameObject instance = Instantiate(HomingProjectile, transform.position, Quaternion.Euler(new Vector3(0, 0, 80 * i)));
-                instance.GetComponent<HomingProjectile>().target = collision.transform;
+                instance.GetComponent<HomingProjectile>().Target = collision.transform;
             }
         }
 

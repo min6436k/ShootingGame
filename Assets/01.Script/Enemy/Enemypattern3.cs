@@ -7,10 +7,10 @@ public class EnemyPattern3 : EnemyPattern1
     public GameObject Projectile;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if((collision.tag == "PlayerBullet" || collision.tag == "Shield") && Speed != 0)
+        if((collision.tag == "PlayerBullet" || collision.tag == "Shield") && gameObject.GetComponent<Enemy>().bIsFreeze == false)
         {
-            GameObject projectile = Instantiate(Projectile, transform.position, Quaternion.identity);
-            projectile.GetComponent<Projectile>().SetBullet(7, Vector3.down);
+            GameObject instance = Instantiate(Projectile, transform.position, Quaternion.identity);
+            instance.GetComponent<Projectile>().SetBullet(7, Vector3.down);
             bMoveRight = !bMoveRight;
             transform.position = new Vector3(Random.Range(StartPosition.x - Amp, StartPosition.x + Amp), transform.position.y+1, transform.position.z);
         }

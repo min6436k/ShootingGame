@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossB : MonoBehaviour
@@ -14,6 +15,8 @@ public class BossB : MonoBehaviour
     public int[] UsePatternCount;
     public int PatternIntervalCount;
     public float PatternIntervalTime = 2;
+
+    public GameObject Pattern6Prefap;
     #endregion
 
     #region SideMove
@@ -22,7 +25,7 @@ public class BossB : MonoBehaviour
     private bool _moveRight = true;
     private float _moveDistance = 5;
     #endregion
-    
+
     private Vector3 _startPos;
     private Vector3 _targetPos;
 
@@ -48,7 +51,7 @@ public class BossB : MonoBehaviour
         else
             transform.position -= new Vector3(SideMoveSpeed, 0, 0) * Time.deltaTime;
 
-        if(Mathf.Abs(transform.position.x) >= _moveDistance)
+        if (Mathf.Abs(transform.position.x) >= _moveDistance)
             _moveRight = !_moveRight;
     }
     IEnumerator MoveDownAndStartPattern()
@@ -72,7 +75,7 @@ public class BossB : MonoBehaviour
         NextPattern();
     }
 
-    public virtual void NextPattern()
+    public void NextPattern()
     {
         int CurrentPatternIndex = FindPattern();
         UsePatternCount[CurrentPatternIndex] = PatternIntervalCount + 1;
@@ -99,6 +102,9 @@ public class BossB : MonoBehaviour
             case 4:
                 StartCoroutine(Pattern5());
                 break;
+            case 5:
+                StartCoroutine(Pattern6());
+                break;
         }
     }
 
@@ -110,8 +116,10 @@ public class BossB : MonoBehaviour
         else return FindPattern();
     }
 
-    public virtual IEnumerator Pattern1()
+    IEnumerator Pattern1()
     {
+        #region Pattern1
+
         int BulletCount = 36;
         float Speed = 4;
         float BulletIntervalTime = 0.05f;
@@ -133,10 +141,13 @@ public class BossB : MonoBehaviour
         yield return new WaitForSeconds(PatternIntervalTime);
 
         NextPattern();
+        #endregion
     }
 
-    public virtual IEnumerator Pattern2()
+    IEnumerator Pattern2()
     {
+        #region Pattern2
+
         int BulletCount = 12;
         float Speed = 7;
 
@@ -153,10 +164,14 @@ public class BossB : MonoBehaviour
         yield return new WaitForSeconds(PatternIntervalTime);
 
         NextPattern();
+        #endregion
+
     }
 
-    public virtual IEnumerator Pattern3()
+    IEnumerator Pattern3()
     {
+        #region Pattern3
+
         int BulletCount = 5;
         float BulletIntervalTime = 0.8f;
         for (int i = 0; i < BulletCount; i++)
@@ -171,19 +186,23 @@ public class BossB : MonoBehaviour
         yield return new WaitForSeconds(PatternIntervalTime);
 
         NextPattern();
+        #endregion
+
     }
 
-    public virtual IEnumerator Pattern4()
+    IEnumerator Pattern4()
     {
+        #region Pattern4
+
         int BulletCount = 15;
         float BulletInterval = 0.6f;
 
         for (int i = 0; i < BulletCount; i++)
         {
-            Vector3 BulletGap =new Vector3(0.3f,0,0);
+            Vector3 BulletGap = new Vector3(0.3f, 0, 0);
 
-            ShootProjectile(transform.position -BulletGap, 16, Vector3.down);
-            ShootProjectile(transform.position +BulletGap, 16, Vector3.down);
+            ShootProjectile(transform.position - BulletGap, 16, Vector3.down);
+            ShootProjectile(transform.position + BulletGap, 16, Vector3.down);
 
             yield return new WaitForSeconds(BulletInterval);
             if (BulletInterval > 0.05f) BulletInterval *= 0.6f;
@@ -192,12 +211,15 @@ public class BossB : MonoBehaviour
         yield return new WaitForSeconds(PatternIntervalTime);
 
         NextPattern();
+        #endregion
+
     }
 
     IEnumerator Pattern5()
     {
+        #region Pattern5
         float R = 8;
-        float deg = 00;
+        float deg = 0;
         Vector3 originPosition = transform.position;
 
         _bmoving = false;
@@ -210,18 +232,18 @@ public class BossB : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         StartCoroutine(Pattern5Bullet());
 
         while (deg < 720)
         {
 
-            deg += Time.deltaTime * 300;
+            deg += Time.deltaTime * 250;
 
-            var rad = Mathf.Deg2Rad * deg;
-            var x = R * Mathf.Sin(rad);
-            var y = R * Mathf.Cos(rad);
+            float radian = Mathf.Deg2Rad * deg;
+            float x = R * Mathf.Sin(radian);
+            float y = R * Mathf.Cos(radian);
             transform.position = GameManager.Instance.Player.transform.position + new Vector3(x, y);
 
             yield return null;
@@ -253,6 +275,27 @@ public class BossB : MonoBehaviour
             ShootProjectile(transform.position, 7, playerDirection);
             yield return new WaitForSeconds(0.1f);
         }
+        #endregion
+    }
+
+    IEnumerator Pattern6()
+    {
+        _bmoving = false;
+
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject instance = Instantiate(Pattern6Prefap, transform);
+            instance.GetComponent<BossBPattern6>().Index = i - 2;
+        }
+
+        yield return new WaitForSeconds(1);
+
+        _bmoving = true;
+
+        yield return new WaitForSeconds(5+PatternIntervalTime);
+
+        NextPattern();
+
     }
 
     public void ShootProjectile(Vector3 position, float speed, Vector3 direction, float Size = 1)

@@ -156,6 +156,7 @@ MonoBehaviour:
   Score: 0
   bMustSpawnItem: 0
   bIsFreeze: 0
+  StartColor: {r: 0, g: 0, b: 0, a: 0}
   Explode: {fileID: 2547633328276223436, guid: 20ad50025371c4b45ab31dc408293ad4, type: 3}
 --- !u!50 &2350642914906811700
 Rigidbody2D:

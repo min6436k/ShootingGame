@@ -21,7 +21,9 @@ public class ItemManager : MonoBehaviour
     {
         GameObject targetItem = Items.Find(x => x.name == (Name.ToString()+"Item"));
 
-        Instantiate(targetItem, Pos, Quaternion.identity);
+        targetItem = Instantiate(targetItem, Pos, Quaternion.identity);
+
+        targetItem.GetComponent<Animator>().SetInteger("ItemNum", (int)Name);
     }
 
     public void SpawnRandomItem(int min, int max, Vector3 position)

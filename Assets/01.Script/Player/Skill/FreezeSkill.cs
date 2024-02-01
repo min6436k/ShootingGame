@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class FreezeSkill : BaseSkill
 {
+    public float FreezeTime = 3;
     public override void Activate()
     {
         base.Activate();
 
         foreach (GameObject i in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            StartCoroutine(FreezeTime(i.GetComponent<Freeze>()));
+            StartCoroutine(Freeze(i));
         }
     }
 
-    IEnumerator FreezeTime(Freeze enemy)
+    IEnumerator Freeze(GameObject enemy)
     {
-        enemy.Freeze(true);
+        enemy.GetComponent<Freeze>().Freeze(true);
+        enemy.GetComponent<SpriteRenderer>().color = enemy.GetComponent<Enemy>().StartColor - new Color(0.5f,0,0,0);
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(FreezeTime);
 
-        enemy.Freeze(false);
+        enemy.GetComponent<Freeze>().Freeze(false);
+        enemy.GetComponent<SpriteRenderer>().color = enemy.GetComponent<Enemy>().StartColor;
 
     }
 }

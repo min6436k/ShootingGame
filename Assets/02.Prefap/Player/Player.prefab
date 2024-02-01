@@ -123,6 +123,7 @@ MonoBehaviour:
   CoolTime: 0
   CurrentCoolTime: 0
   bIsCoolTime: 0
+  FreezeTime: 3
 --- !u!1 &5979821020205662817
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,6 +201,7 @@ GameObject:
   - component: {fileID: 2553258402845901285}
   - component: {fileID: 8825455973026152066}
   - component: {fileID: 7592830152139744364}
+  - component: {fileID: 2842165226891169387}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -296,6 +298,7 @@ MonoBehaviour:
   - {fileID: 776406147791755653}
   - {fileID: 3022387588027079541}
   AddOnPrefap: {fileID: 9012530357827520295, guid: 790637053e3e6134490fb0a237921ea3, type: 3}
+  Explode: {fileID: 2547633328276223436, guid: 20ad50025371c4b45ab31dc408293ad4, type: 3}
 --- !u!50 &5056596325900013552
 Rigidbody2D:
   serializedVersion: 4
@@ -402,3 +405,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxPlayerFuel: 100
   FuelDecreaseSpeed: 2
+--- !u!95 &2842165226891169387
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7994290965609472478}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 573006ccd1643e54db5fe0b303d50c20, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

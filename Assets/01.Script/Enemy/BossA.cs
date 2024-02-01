@@ -73,7 +73,7 @@ public class BossA : MonoBehaviour
         NextPattern();
     }
 
-    public virtual void NextPattern()
+    public void NextPattern()
     {
         int CurrentPatternIndex = FindPattern();
         UsePatternCount[CurrentPatternIndex] = PatternIntervalCount + 1;
@@ -108,7 +108,7 @@ public class BossA : MonoBehaviour
         else return FindPattern();
     }
 
-    public virtual IEnumerator Pattern1()
+    public IEnumerator Pattern1()
     {
         int BulletCount = 36;
         float Speed = 4;
@@ -133,7 +133,7 @@ public class BossA : MonoBehaviour
         NextPattern();
     }
 
-    public virtual IEnumerator Pattern2()
+    public IEnumerator Pattern2()
     {
         int BulletCount = 12;
         float Speed = 7;
@@ -153,7 +153,7 @@ public class BossA : MonoBehaviour
         NextPattern();
     }
 
-    public virtual IEnumerator Pattern3()
+    public IEnumerator Pattern3()
     {
         int BulletCount = 5;
         float BulletIntervalTime = 0.8f;
@@ -171,7 +171,7 @@ public class BossA : MonoBehaviour
         NextPattern();
     }
 
-    public virtual IEnumerator Pattern4()
+    public IEnumerator Pattern4()
     {
         int BulletCount = 15;
         float BulletInterval = 0.6f;

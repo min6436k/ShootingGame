@@ -20,7 +20,7 @@ public class AddOnItem : BaseItem
     {
         GameObject instance = Instantiate(prefab, GameManager.Instance.Player.transform.position,Quaternion.identity);
 
-        instance.GetComponent<AddOn>().TargetTransform = addOnTargetTransform;
+        instance.GetComponent<AddOn>().FollowPos = addOnTargetTransform;
 
         if (PlusAddOnCount) GameInstance.Instance.AddOnCount++;
     }

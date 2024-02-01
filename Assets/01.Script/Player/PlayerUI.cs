@@ -22,6 +22,8 @@ public class PlayerUI : MonoBehaviour
     public Slider FuelSlider;
 
     public List<CoolDownText> SkillCooldownTexts = new List<CoolDownText>();
+    public TextMeshProUGUI NoticeText;
+    private Coroutine _noticeCoroutine;
 
     private void Start()
     {
@@ -60,5 +62,35 @@ public class PlayerUI : MonoBehaviour
     private void UpdateFuel()
     {
         FuelSlider.value = GameInstance.Instance.PlayerFuel / 100;
+    }
+
+    public void CoolNoticeCoolTime(EnumTypes.PlayerSkill playerSkill)
+    {
+        if (_noticeCoroutine != null) StopCoroutine(_noticeCoroutine);
+        
+        _noticeCoroutine = StartCoroutine(NoticeCoolTime(playerSkill));
+    }
+
+
+    IEnumerator NoticeCoolTime(EnumTypes.PlayerSkill playerSkill)
+    {
+        NoticeText.color = Color.white;
+
+        NoticeText.gameObject.SetActive(true);
+
+        NoticeText.text = playerSkill.ToString() +"Skill is CoolDown";
+
+        yield return new WaitForSeconds(1);
+
+        float fadeTime = 0;
+        while (fadeTime < 0.4f)
+        {
+            NoticeText.color = Color.Lerp(Color.white, Color.clear, fadeTime);
+            fadeTime += Time.deltaTime * 2.5f;
+            yield return null;
+        }
+
+        NoticeText.gameObject.SetActive(false);
+
     }
 }

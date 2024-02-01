@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3424895735098307365
+--- !u!1001 &1469036808944170392
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,29 +8,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 195711959538971158, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
-      propertyPath: HP
-      value: 150
-      objectReference: {fileID: 0}
     - target: {fileID: 4979438061258401998, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
-      propertyPath: m_Color.b
-      value: 1
+      propertyPath: m_Color.a
+      value: 0.3137255
       objectReference: {fileID: 0}
     - target: {fileID: 4979438061258401998, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
       propertyPath: m_Color.g
-      value: 0.6
+      value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979438061258401998, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979438061258401998, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5938632649644109536, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
       propertyPath: m_Name
-      value: BossB
+      value: BossPatern6Prefap
       objectReference: {fileID: 0}
     - target: {fileID: 7210770021529260057, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.4
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7210770021529260057, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7210770021529260057, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
       propertyPath: m_LocalPosition.x
@@ -74,34 +78,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7047300155194809638, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
+    - {fileID: 195711959538971158, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
+    - {fileID: 3892899617849397366, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
+    - {fileID: 2549353934837183779, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5938632649644109536, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2333548424622058590}
+      addedObject: {fileID: -6612454141111126825}
   m_SourcePrefab: {fileID: 100100000, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
---- !u!1 &9074170955988344261 stripped
+--- !u!1 &5046657078891240312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5938632649644109536, guid: 4cdc001705c83254e9b1a74780d1cace, type: 3}
-  m_PrefabInstance: {fileID: 3424895735098307365}
+  m_PrefabInstance: {fileID: 1469036808944170392}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2333548424622058590
+--- !u!114 &-6612454141111126825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9074170955988344261}
+  m_GameObject: {fileID: 5046657078891240312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63d32a56c4379c2438bb06afddededb7, type: 3}
+  m_Script: {fileID: 11500000, guid: 2107326b4bdf5e146bcb166e649ae7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 6428931685224668811, guid: efd32abbadf74964aa089b4f69b8e72f, type: 3}
-  MaxPatternIndex: 6
-  UsePatternCount: 
-  PatternIntervalCount: 1
-  PatternIntervalTime: 2
-  Pattern6Prefap: {fileID: 5046657078891240312, guid: 6d7fd5941370a5d4ea64442646610751, type: 3}
-  SideMoveSpeed: 2
+  Index: 0
+  BossBullet: {fileID: 6428931685224668811, guid: efd32abbadf74964aa089b4f69b8e72f, type: 3}
